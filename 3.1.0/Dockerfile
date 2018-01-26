@@ -1,7 +1,7 @@
 FROM alpine:3.6 AS builder
 
-ARG TEAMSPEAK_CHECKSUM=e32bf1af76654ce51fc0a3560385a247c36d682eeac1979649d522a88fef9d9c
-ARG TEAMSPEAK_URL=http://dl.4players.de/ts/releases/pre_releases/server/3.1.0-Beta-1/teamspeak3-server_linux_alpine-3.1.0.tar.bz2
+ARG TEAMSPEAK_CHECKSUM=23e0aec4991c6e8b051a192b0d40dfc2e2fac3e66b616ca33880712e99421f37
+ARG TEAMSPEAK_URL=http://dl.4players.de/ts/releases/pre_releases/server/3.1.0-Beta-2/teamspeak3-server_linux_alpine-3.1.0.tar.bz2
 
 RUN apk add --update tar ca-certificates
 
