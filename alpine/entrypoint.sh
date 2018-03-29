@@ -39,6 +39,7 @@ file_env() {
 
 if [ "$1" = 'ts3server' ]; then
 	file_env 'TS3SERVER_DB_HOST'
+	file_env 'TS3SERVER_DB_PORT'
 	file_env 'TS3SERVER_DB_USER'
 	file_env 'TS3SERVER_DB_PASSWORD'
 	file_env 'TS3SERVER_DB_NAME'
