@@ -10,8 +10,8 @@ RUN set -eux; \
 
 ENV PATH "${PATH}:/opt/ts3server"
 
-ARG TEAMSPEAK_CHECKSUM=5a0c0c9e6f41142d98a1171af68dcefd19532a8a4ae9cf5d1e2c424a554f7ea9
-ARG TEAMSPEAK_URL=http://dl.4players.de/ts/releases/3.1.1/teamspeak3-server_linux_alpine-3.1.1.tar.bz2
+ARG TEAMSPEAK_CHECKSUM=f264a17d4f013f3afedf0651232870f31392915c337fb21d1b81497f78cee4c7
+ARG TEAMSPEAK_URL=http://dl.4players.de/ts/releases/3.1.2/teamspeak3-server_linux_alpine-3.1.2.tar.bz2
 
 RUN set -eux; \
  apk add --no-cache --virtual .fetch-deps tar; \
