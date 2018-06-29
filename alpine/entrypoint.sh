@@ -45,6 +45,9 @@ if [ "$1" = 'ts3server' ]; then
 	
 	cat <<- EOF >/var/run/ts3server/ts3server.ini
 		licensepath=${TS3SERVER_LICENSEPATH}
+		query_protocols=${TS3SERVER_QUERY_PROTOCOLS:-raw}
+		query_timeout=${TS3SERVER_QUERY_TIMEOUT:-300}
+		query_ssh_rsa_host_key=${TS3SERVER_QUERY_SSH_RSA_HOST_KEY:-ssh_host_rsa_key}
 		query_ip_whitelist=${TS3SERVER_IP_WHITELIST:-query_ip_whitelist.txt}
 		query_ip_blacklist=${TS3SERVER_IP_BLACKLIST:-query_ip_blacklist.txt}
 		dbplugin=${TS3SERVER_DB_PLUGIN:-ts3db_sqlite3}
@@ -56,6 +59,7 @@ if [ "$1" = 'ts3server' ]; then
 		logpath=${TS3SERVER_LOG_PATH:-/var/ts3server/logs}
 		logquerycommands=${TS3SERVER_LOG_QUERY_COMMANDS:-0}
 		logappend=${TS3SERVER_LOG_APPEND:-0}
+		serverquerydocs_path=${TS3SERVER_serverquerydocs_path:-/opt/ts3server/serverquerydocs/}
 	EOF
 	cat <<- EOF >/var/run/ts3server/ts3db.ini
 		[config]
