@@ -59,7 +59,7 @@ if [ "$1" = 'ts3server' ]; then
 		logpath=${TS3SERVER_LOG_PATH:-/var/ts3server/logs}
 		logquerycommands=${TS3SERVER_LOG_QUERY_COMMANDS:-0}
 		logappend=${TS3SERVER_LOG_APPEND:-0}
-		serverquerydocs_path=${TS3SERVER_serverquerydocs_path:-/opt/ts3server/serverquerydocs/}
+		serverquerydocs_path=${TS3SERVER_SERVERQUERYDOCS_PATH:-/opt/ts3server/serverquerydocs/}
 	EOF
 	cat <<- EOF >/var/run/ts3server/ts3db.ini
 		[config]
