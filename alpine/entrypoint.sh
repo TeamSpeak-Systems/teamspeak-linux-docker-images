@@ -60,7 +60,7 @@ if [ "$1" = 'ts3server' ]; then
 		logquerycommands=${TS3SERVER_LOG_QUERY_COMMANDS:-0}
 		logappend=${TS3SERVER_LOG_APPEND:-0}
 		serverquerydocs_path=${TS3SERVER_SERVERQUERYDOCS_PATH:-/opt/ts3server/serverquerydocs/}
-    filetransfer_ip=${TS3SERVER_FILE_TRANSFER_IP:-0.0.0.0}
+		filetransfer_ip=${TS3SERVER_FILE_TRANSFER_IP:-0.0.0.0}
 		filetransfer_port=${TS3SERVER_FILE_TRANSFER_PORT:-30033}
 	EOF
 	cat <<- EOF >/var/run/ts3server/ts3db.ini
