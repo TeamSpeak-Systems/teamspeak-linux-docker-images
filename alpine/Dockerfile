@@ -18,6 +18,7 @@ RUN set -eux; \
  wget "${TEAMSPEAK_URL}" -O server.tar.bz2; \
  echo "${TEAMSPEAK_CHECKSUM} *server.tar.bz2" | sha256sum -c -; \
  mkdir -p /opt/ts3server; \
+ mkdir /docker-entrypoint.d; \
  tar -xf server.tar.bz2 --strip-components=1 -C /opt/ts3server; \
  rm server.tar.bz2; \
  apk del .fetch-deps; \
@@ -32,8 +33,8 @@ WORKDIR /var/ts3server/
 #  9987 default voice
 # 10011 server query
 # 30033 file transport
-EXPOSE 9987/udp 10011 30033 
+EXPOSE 9987/udp 10011 30033
 
-COPY entrypoint.sh /opt/ts3server
+COPY --chown=ts3server:ts3server entrypoint.sh /opt/ts3server
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "ts3server" ]

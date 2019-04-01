@@ -42,7 +42,7 @@ if [ "$1" = 'ts3server' ]; then
 	file_env 'TS3SERVER_DB_USER'
 	file_env 'TS3SERVER_DB_PASSWORD'
 	file_env 'TS3SERVER_DB_NAME'
-	
+
 	cat <<- EOF >/var/run/ts3server/ts3server.ini
 		licensepath=${TS3SERVER_LICENSEPATH}
 		query_protocols=${TS3SERVER_QUERY_PROTOCOLS:-raw}
@@ -72,5 +72,17 @@ if [ "$1" = 'ts3server' ]; then
 		wait_until_ready='${TS3SERVER_DB_WAITUNTILREADY:-30}'
 	EOF
 fi
+
+echo ""
+echo "*************************************************************************"
+echo "run entrypoint scripts"
+echo "*************************************************************************"
+echo ""
+for f in /docker-entrypoint.d/*; do
+    case "$f" in
+        *.sh) echo "$f"; /bin/sh "$f" ;;
+        *) ;;
+    esac
+done
 
 exec "$@"
