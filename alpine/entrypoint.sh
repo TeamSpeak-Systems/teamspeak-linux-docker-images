@@ -42,9 +42,15 @@ if [ "$1" = 'ts3server' ]; then
 	file_env 'TS3SERVER_DB_USER'
 	file_env 'TS3SERVER_DB_PASSWORD'
 	file_env 'TS3SERVER_DB_NAME'
+	file_env 'TS3Server_VOCIE_PORT'
+	file_env 'TS3Server_QUERY_PORT'
+	file_env 'TS3Server_FILETRANSFER_PORT'
 	
 	cat <<- EOF >/var/run/ts3server/ts3server.ini
 		licensepath=${TS3SERVER_LICENSEPATH}
+		default_voice_port=${TS3Server_VOCIE_PORT:-9987}
+		query_port=${TS3Server_QUERY_PORT:-10011}
+		filetransfer_prot=${TS3Server_FILETRANSFER_PORT:-30033}
 		query_protocols=${TS3SERVER_QUERY_PROTOCOLS:-raw}
 		query_timeout=${TS3SERVER_QUERY_TIMEOUT:-300}
 		query_ssh_rsa_host_key=${TS3SERVER_QUERY_SSH_RSA_HOST_KEY:-ssh_host_rsa_key}
