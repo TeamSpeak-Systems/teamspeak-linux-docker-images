@@ -61,6 +61,11 @@ if [ "$1" = 'ts3server' ]; then
 		logappend=${TS3SERVER_LOG_APPEND:-0}
 		serverquerydocs_path=${TS3SERVER_SERVERQUERYDOCS_PATH:-/opt/ts3server/serverquerydocs/}
 	EOF
+
+	if [[ $TS3SERVER_SERVERADMIN_PASSWORD ]]; then
+		echo "serveradmin_password=${TS3SERVER_SERVERADMIN_PASSWORD}" >> /var/run/ts3server/ts3server.ini
+	fi
+
 	cat <<- EOF >/var/run/ts3server/ts3db.ini
 		[config]
 		host='${TS3SERVER_DB_HOST}'
