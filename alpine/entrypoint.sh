@@ -67,7 +67,7 @@ if [ "$1" = 'ts3server' ]; then
 		voice_ip=${TS3SERVER_VOICE_IP:-0.0.0.0}
 		default_voice_port=${TS3SERVER_DEFAULT_VOICE_PORT:-9987}
 		query_ssh_ip=${TS3SERVER_QUERY_SSH_IP:-0.0.0.0}
-		query_ssh_port${TS3SERVER_QUERY_SSH_PORT:-10022}
+		query_ssh_port=${TS3SERVER_QUERY_SSH_PORT:-10022}
 	EOF
 
 	if [[ $TS3SERVER_SERVERADMIN_PASSWORD ]]; then
