@@ -17,85 +17,85 @@ fi
 # (will allow for "$XYZ_DB_PASSWORD_FILE" to fill in the value of
 #  "$XYZ_DB_PASSWORD" from a file, especially for Docker's secrets feature)
 file_env() {
-	local var="$1"
-	local fileVar="${var}_FILE"
-	eval local varValue="\$${var}"
-	eval local fileVarValue="\$${var}_FILE"
-	local def="${2:-}"
-	if [ "${varValue:-}" ] && [ "${fileVarValue:-}" ]; then
-			echo >&2 "error: both $var and $fileVar are set (but are exclusive)"
-			exit 1
-	fi
-	local val="$def"
-	if [ "${varValue:-}" ]; then
-			val="${varValue}"
-	elif [ "${fileVarValue:-}" ]; then
-			val="$(cat "${fileVarValue}")"
-	fi
-	export "$var"="$val"
-	unset "$fileVar"
-	unset "$fileVarValue"
+    local var="$1"
+    local fileVar="${var}_FILE"
+    eval local varValue="\$${var}"
+    eval local fileVarValue="\$${var}_FILE"
+    local def="${2:-}"
+    if [ "${varValue:-}" ] && [ "${fileVarValue:-}" ]; then
+        echo >&2 "error: both $var and $fileVar are set (but are exclusive)"
+        exit 1
+    fi
+    local val="$def"
+    if [ "${varValue:-}" ]; then
+        val="${varValue}"
+    elif [ "${fileVarValue:-}" ]; then
+        val="$(cat "${fileVarValue}")"
+    fi
+    export "$var"="$val"
+    unset "$fileVar"
+    unset "$fileVarValue"
 }
 
 if [ "$1" = 'ts3server' ]; then
-	file_env 'TS3SERVER_DB_HOST'
-	file_env 'TS3SERVER_DB_USER'
-	file_env 'TS3SERVER_DB_PASSWORD'
-	file_env 'TS3SERVER_DB_NAME'
-	
-	cat <<- EOF >/var/run/ts3server/ts3server.ini
-		licensepath=${TS3SERVER_LICENSEPATH}
-		query_protocols=${TS3SERVER_QUERY_PROTOCOLS:-raw}
-		query_timeout=${TS3SERVER_QUERY_TIMEOUT:-300}
-		query_ssh_rsa_host_key=${TS3SERVER_QUERY_SSH_RSA_HOST_KEY:-ssh_host_rsa_key}
-		query_ip_whitelist=${TS3SERVER_IP_WHITELIST:-query_ip_whitelist.txt}
-		query_ip_blacklist=${TS3SERVER_IP_BLACKLIST:-query_ip_blacklist.txt}
-		dbplugin=${TS3SERVER_DB_PLUGIN:-ts3db_sqlite3}
-		dbpluginparameter=${TS3SERVER_DB_PLUGINPARAMETER:-/var/run/ts3server/ts3db.ini}
-		dbsqlpath=${TS3SERVER_DB_SQLPATH:-/opt/ts3server/sql/}
-		dbsqlcreatepath=${TS3SERVER_DB_SQLCREATEPATH:-create_sqlite}
-		dbconnections=${TS3SERVER_DB_CONNECTIONS:-10}
-		dbclientkeepdays=${TS3SERVER_DB_CLIENTKEEPDAYS:-30}
-		logpath=${TS3SERVER_LOG_PATH:-/var/ts3server/logs}
-		logquerycommands=${TS3SERVER_LOG_QUERY_COMMANDS:-0}
-		logappend=${TS3SERVER_LOG_APPEND:-0}
-		serverquerydocs_path=${TS3SERVER_SERVERQUERYDOCS_PATH:-/opt/ts3server/serverquerydocs/}
-		query_port=${TS3SERVER_QUERY_PORT:-10011}
-		filetransfer_port=${TS3SERVER_FILETRANSFER_PORT:-30033}
-		default_voice_port=${TS3SERVER_DEFAULT_VOICE_PORT:-9987}
-		query_ssh_port=${TS3SERVER_QUERY_SSH_PORT:-10022}
-	EOF
+    file_env 'TS3SERVER_DB_HOST'
+    file_env 'TS3SERVER_DB_USER'
+    file_env 'TS3SERVER_DB_PASSWORD'
+    file_env 'TS3SERVER_DB_NAME'
+
+    cat <<- EOF >/var/run/ts3server/ts3server.ini
+        licensepath=${TS3SERVER_LICENSEPATH}
+        query_protocols=${TS3SERVER_QUERY_PROTOCOLS:-raw}
+        query_timeout=${TS3SERVER_QUERY_TIMEOUT:-300}
+        query_ssh_rsa_host_key=${TS3SERVER_QUERY_SSH_RSA_HOST_KEY:-ssh_host_rsa_key}
+        query_ip_whitelist=${TS3SERVER_IP_WHITELIST:-query_ip_whitelist.txt}
+        query_ip_blacklist=${TS3SERVER_IP_BLACKLIST:-query_ip_blacklist.txt}
+        dbplugin=${TS3SERVER_DB_PLUGIN:-ts3db_sqlite3}
+        dbpluginparameter=${TS3SERVER_DB_PLUGINPARAMETER:-/var/run/ts3server/ts3db.ini}
+        dbsqlpath=${TS3SERVER_DB_SQLPATH:-/opt/ts3server/sql/}
+        dbsqlcreatepath=${TS3SERVER_DB_SQLCREATEPATH:-create_sqlite}
+        dbconnections=${TS3SERVER_DB_CONNECTIONS:-10}
+        dbclientkeepdays=${TS3SERVER_DB_CLIENTKEEPDAYS:-30}
+        logpath=${TS3SERVER_LOG_PATH:-/var/ts3server/logs}
+        logquerycommands=${TS3SERVER_LOG_QUERY_COMMANDS:-0}
+        logappend=${TS3SERVER_LOG_APPEND:-0}
+        serverquerydocs_path=${TS3SERVER_SERVERQUERYDOCS_PATH:-/opt/ts3server/serverquerydocs/}
+        query_port=${TS3SERVER_QUERY_PORT:-10011}
+        filetransfer_port=${TS3SERVER_FILETRANSFER_PORT:-30033}
+        default_voice_port=${TS3SERVER_DEFAULT_VOICE_PORT:-9987}
+        query_ssh_port=${TS3SERVER_QUERY_SSH_PORT:-10022}
+    EOF
 
     if [[ $TS3SERVER_QUERY_IP ]]; then
-		echo "query_ip=${TS3SERVER_QUERY_IP}" >> /var/run/ts3server/ts3server.ini
-	fi
+        echo "query_ip=${TS3SERVER_QUERY_IP}" >> /var/run/ts3server/ts3server.ini
+    fi
 
     if [[ $TS3SERVER_FILETRANSFER_IP ]]; then
-		echo "filetransfer_ip=${TS3SERVER_FILETRANSFER_IP}" >> /var/run/ts3server/ts3server.ini
-	fi
+        echo "filetransfer_ip=${TS3SERVER_FILETRANSFER_IP}" >> /var/run/ts3server/ts3server.ini
+    fi
 
     if [[ $TS3SERVER_VOICE_IP ]]; then
-		echo "voice_ip=${TS3SERVER_VOICE_IP}" >> /var/run/ts3server/ts3server.ini
-	fi
+        echo "voice_ip=${TS3SERVER_VOICE_IP}" >> /var/run/ts3server/ts3server.ini
+    fi
 
     if [[ $TS3SERVER_QUERY_SSH_IP ]]; then
-		echo "query_ssh_ip=${TS3SERVER_QUERY_SSH_IP}" >> /var/run/ts3server/ts3server.ini
-	fi
+        echo "query_ssh_ip=${TS3SERVER_QUERY_SSH_IP}" >> /var/run/ts3server/ts3server.ini
+    fi
 
-	if [[ $TS3SERVER_SERVERADMIN_PASSWORD ]]; then
-		echo "serveradmin_password=${TS3SERVER_SERVERADMIN_PASSWORD}" >> /var/run/ts3server/ts3server.ini
-	fi
+    if [[ $TS3SERVER_SERVERADMIN_PASSWORD ]]; then
+        echo "serveradmin_password=${TS3SERVER_SERVERADMIN_PASSWORD}" >> /var/run/ts3server/ts3server.ini
+    fi
 
-	cat <<- EOF >/var/run/ts3server/ts3db.ini
-		[config]
-		host='${TS3SERVER_DB_HOST}'
-		port='${TS3SERVER_DB_PORT:-3306}'
-		username='${TS3SERVER_DB_USER}'
-		password='${TS3SERVER_DB_PASSWORD}'
-		database='${TS3SERVER_DB_NAME}'
-		socket=
-		wait_until_ready='${TS3SERVER_DB_WAITUNTILREADY:-30}'
-	EOF
+    cat <<- EOF >/var/run/ts3server/ts3db.ini
+        [config]
+        host='${TS3SERVER_DB_HOST}'
+        port='${TS3SERVER_DB_PORT:-3306}'
+        username='${TS3SERVER_DB_USER}'
+        password='${TS3SERVER_DB_PASSWORD}'
+        database='${TS3SERVER_DB_NAME}'
+        socket=
+        wait_until_ready='${TS3SERVER_DB_WAITUNTILREADY:-30}'
+    EOF
 fi
 
 exec "$@"
