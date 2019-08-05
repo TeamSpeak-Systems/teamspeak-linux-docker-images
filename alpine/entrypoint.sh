@@ -60,15 +60,27 @@ if [ "$1" = 'ts3server' ]; then
 		logquerycommands=${TS3SERVER_LOG_QUERY_COMMANDS:-0}
 		logappend=${TS3SERVER_LOG_APPEND:-0}
 		serverquerydocs_path=${TS3SERVER_SERVERQUERYDOCS_PATH:-/opt/ts3server/serverquerydocs/}
-		query_ip=${TS3SERVER_QUERY_IP:-0.0.0.0}
 		query_port=${TS3SERVER_QUERY_PORT:-10011}
-		filetransfer_ip=${TS3SERVER_FILETRANSFER_IP:-0.0.0.0}
 		filetransfer_port=${TS3SERVER_FILETRANSFER_PORT:-30033}
-		voice_ip=${TS3SERVER_VOICE_IP:-0.0.0.0}
 		default_voice_port=${TS3SERVER_DEFAULT_VOICE_PORT:-9987}
-		query_ssh_ip=${TS3SERVER_QUERY_SSH_IP:-0.0.0.0}
 		query_ssh_port=${TS3SERVER_QUERY_SSH_PORT:-10022}
 	EOF
+
+    if [[ $TS3SERVER_QUERY_IP ]]; then
+		echo "query_ip=${TS3SERVER_QUERY_IP}" >> /var/run/ts3server/ts3server.ini
+	fi
+
+    if [[ $TS3SERVER_FILETRANSFER_IP ]]; then
+		echo "filetransfer_ip=${TS3SERVER_FILETRANSFER_IP}" >> /var/run/ts3server/ts3server.ini
+	fi
+
+    if [[ $TS3SERVER_VOICE_IP ]]; then
+		echo "voice_ip=${TS3SERVER_VOICE_IP}" >> /var/run/ts3server/ts3server.ini
+	fi
+
+    if [[ $TS3SERVER_QUERY_SSH_IP ]]; then
+		echo "query_ssh_ip=${TS3SERVER_QUERY_SSH_IP}" >> /var/run/ts3server/ts3server.ini
+	fi
 
 	if [[ $TS3SERVER_SERVERADMIN_PASSWORD ]]; then
 		echo "serveradmin_password=${TS3SERVER_SERVERADMIN_PASSWORD}" >> /var/run/ts3server/ts3server.ini
