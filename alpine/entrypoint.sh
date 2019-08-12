@@ -15,7 +15,7 @@ fi
 # usage: file_env VAR [DEFAULT]
 #    ie: file_env 'XYZ_DB_PASSWORD' 'example'
 # (will allow for "$XYZ_DB_PASSWORD_FILE" to fill in the value of
-#  "$XYZ_DB_PASSWORD" from a file, especially for Docker's secrets feature)
+# "$XYZ_DB_PASSWORD" from a file, especially for Docker's secrets feature)
 file_env() {
     local var="$1"
     local fileVar="${var}_FILE"
@@ -43,7 +43,7 @@ if [ "$1" = 'ts3server' ]; then
     file_env 'TS3SERVER_DB_PASSWORD'
     file_env 'TS3SERVER_DB_NAME'
 
-    cat <<- EOF >/var/run/ts3server/ts3server.ini
+    cat << EOF | sed 's/^[ \t]*//;s/[ \t]*$//;/^$/d' > /var/run/ts3server/ts3server.ini
         licensepath=${TS3SERVER_LICENSEPATH}
         query_protocols=${TS3SERVER_QUERY_PROTOCOLS:-raw}
         query_timeout=${TS3SERVER_QUERY_TIMEOUT:-300}
@@ -69,9 +69,9 @@ if [ "$1" = 'ts3server' ]; then
         ${TS3SERVER_QUERY_SSH_IP:+query_ssh_ip=${TS3SERVER_QUERY_SSH_IP}}
         query_ssh_port=${TS3SERVER_QUERY_SSH_PORT:-10022}
         ${TS3SERVER_SERVERADMIN_PASSWORD:+serveradmin_password=${TS3SERVER_SERVERADMIN_PASSWORD}}
-    EOF
+EOF
 
-    cat <<- EOF >/var/run/ts3server/ts3db.ini
+    cat << EOF | sed 's/^[ \t]*//;s/[ \t]*$//;/^$/d' > /var/run/ts3server/ts3db.ini
         [config]
         host='${TS3SERVER_DB_HOST}'
         port='${TS3SERVER_DB_PORT:-3306}'
@@ -80,7 +80,7 @@ if [ "$1" = 'ts3server' ]; then
         database='${TS3SERVER_DB_NAME}'
         socket=
         wait_until_ready='${TS3SERVER_DB_WAITUNTILREADY:-30}'
-    EOF
+EOF
 fi
 
 exec "$@"
