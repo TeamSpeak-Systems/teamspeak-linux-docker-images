@@ -35,5 +35,6 @@ WORKDIR /var/ts3server/
 EXPOSE 9987/udp 10011 30033 
 
 COPY entrypoint.sh /opt/ts3server
+RUN chmod 755 /opt/ts3server/entrypoint.sh
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "ts3server" ]
