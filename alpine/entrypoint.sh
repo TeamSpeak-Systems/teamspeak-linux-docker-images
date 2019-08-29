@@ -33,8 +33,12 @@ file_env() {
         val="$(cat "${fileVarValue}")"
     fi
     export "$var"="$val"
-    unset "$fileVar"
-    unset "$fileVarValue"
+    if [ "${fileVar:-}" ]; then
+        unset "$fileVar"
+    fi
+    if [ "${fileVarValue:-}" ]; then
+        unset "$fileVarValue"
+    fi
 }
 
 if [ "$1" = 'ts3server' ]; then
