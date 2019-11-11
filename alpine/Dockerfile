@@ -5,8 +5,7 @@ RUN set -eux; \
  addgroup -g 9987 ts3server; \
  adduser -u 9987 -Hh /var/ts3server -G ts3server -s /sbin/nologin -D ts3server; \
  mkdir -p /var/ts3server /var/run/ts3server; \
- chown ts3server:ts3server /var/ts3server /var/run/ts3server; \
- chmod 777 /var/ts3server /var/run/ts3server
+ chown ts3server:ts3server /var/ts3server /var/run/ts3server
 
 ENV PATH "${PATH}:/opt/ts3server"
 
@@ -35,6 +34,5 @@ WORKDIR /var/ts3server/
 EXPOSE 9987/udp 10011 30033 
 
 COPY entrypoint.sh /opt/ts3server
-RUN chmod 755 /opt/ts3server/entrypoint.sh
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "ts3server" ]
