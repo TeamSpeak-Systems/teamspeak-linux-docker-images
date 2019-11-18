@@ -4,8 +4,7 @@ RUN apk add --no-cache ca-certificates libstdc++ su-exec
 RUN set -eux; \
  addgroup -g 9987 ts3server; \
  adduser -u 9987 -Hh /var/ts3server -G ts3server -s /sbin/nologin -D ts3server; \
- mkdir -p /var/ts3server /var/run/ts3server; \
- chown ts3server:ts3server /var/ts3server /var/run/ts3server
+ install -d -o ts3server -g ts3server -m 777 /var/ts3server /var/run/ts3server
 
 ENV PATH "${PATH}:/opt/ts3server"
 
