@@ -73,6 +73,7 @@ if [ "$1" = 'ts3server' ]; then
         ${TS3SERVER_QUERY_SSH_IP:+query_ssh_ip=${TS3SERVER_QUERY_SSH_IP}}
         query_ssh_port=${TS3SERVER_QUERY_SSH_PORT:-10022}
         ${TS3SERVER_SERVERADMIN_PASSWORD:+serveradmin_password=${TS3SERVER_SERVERADMIN_PASSWORD}}
+        ${TS3SERVER_MACHINE_ID:+machine_id=${TS3SERVER_MACHINE_ID}}
 EOF
 
     cat << EOF | sed 's/^[ \t]*//;s/[ \t]*$//;/^$/d' > /var/run/ts3server/ts3db.ini
