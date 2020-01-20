@@ -4,7 +4,7 @@ RUN apk add --no-cache ca-certificates libstdc++ su-exec
 RUN set -eux; \
  addgroup -g 9987 ts3server; \
  adduser -u 9987 -Hh /var/ts3server -G ts3server -s /sbin/nologin -D ts3server; \
- install -d -o ts3server -g ts3server -m 777 /var/ts3server /var/run/ts3server
+ install -d -o ts3server -g ts3server -m 775 /var/ts3server /var/run/ts3server /opt/ts3server
 
 ENV PATH "${PATH}:/opt/ts3server"
 
@@ -20,8 +20,7 @@ RUN set -eux; \
  rm server.tar.bz2; \
  apk del .fetch-deps; \
  mv /opt/ts3server/*.so /opt/ts3server/redist/* /usr/local/lib; \
- ldconfig /usr/local/lib; \
- chown -R ts3server:ts3server /opt/ts3server
+ ldconfig /usr/local/lib
 
 # setup directory where user data is stored
 VOLUME /var/ts3server/
@@ -33,7 +32,6 @@ WORKDIR /var/ts3server/
 EXPOSE 9987/udp 10011 30033 
 
 COPY entrypoint.sh /opt/ts3server
-RUN chmod a+rx /opt/ts3server/entrypoint.sh
 
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "ts3server" ]
