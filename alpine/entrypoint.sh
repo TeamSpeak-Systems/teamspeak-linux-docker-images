@@ -37,7 +37,7 @@ file_env() {
         unset "$fileVar"
     fi
     if [ "${fileVarValue:-}" ]; then
-        unset "$fileVarValue"
+        unset "fileVarValue"
     fi
 }
 
