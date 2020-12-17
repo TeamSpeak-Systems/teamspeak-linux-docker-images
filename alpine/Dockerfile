@@ -8,8 +8,8 @@ RUN set -eux; \
 
 ENV PATH "${PATH}:/opt/ts3server"
 
-ARG TEAMSPEAK_CHECKSUM=a91bb44463f0992a29e85aef4cd5571bac5ad0a45168b810f508464618bd20ce
-ARG TEAMSPEAK_URL=https://files.teamspeak-services.com/releases/server/3.13.2/teamspeak3-server_linux_alpine-3.13.2.tar.bz2
+ARG TEAMSPEAK_CHECKSUM=b4134aeba964782e10c22dcb96b6de4c96e558965e9d5ed9b0db47e648ad1498
+ARG TEAMSPEAK_URL=https://files.teamspeak-services.com/releases/server/3.13.3/teamspeak3-server_linux_alpine-3.13.3.tar.bz2
 
 RUN set -eux; \
     apk add --no-cache --virtual .fetch-deps tar; \
