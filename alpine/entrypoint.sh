@@ -12,6 +12,15 @@ if [ "$1" = 'ts3server' ]; then
     set -- "$@" inifile=/var/run/ts3server/ts3server.ini
 fi
 
+# migrate white/blacklist to allow/denylist
+if test -f "/var/ts3server/query_ip_whitelist.txt"; then
+    mv /var/ts3server/query_ip_whitelist.txt query_ip_allowlist.txt
+fi
+
+if test -f "/var/ts3server/query_ip_blacklist.txt"; then
+    mv /var/ts3server/query_ip_blacklist.txt query_ip_denylist.txt
+fi
+
 # usage: file_env VAR [DEFAULT]
 #    ie: file_env 'XYZ_DB_PASSWORD' 'example'
 # (will allow for "$XYZ_DB_PASSWORD_FILE" to fill in the value of
