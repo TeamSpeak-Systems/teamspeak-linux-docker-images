@@ -14,11 +14,11 @@ fi
 
 # migrate white/blacklist to allow/denylist
 if test -f "/var/ts3server/query_ip_whitelist.txt"; then
-    mv /var/ts3server/query_ip_whitelist.txt query_ip_allowlist.txt
+    mv /var/ts3server/query_ip_whitelist.txt /var/ts3server/query_ip_allowlist.txt
 fi
 
 if test -f "/var/ts3server/query_ip_blacklist.txt"; then
-    mv /var/ts3server/query_ip_blacklist.txt query_ip_denylist.txt
+    mv /var/ts3server/query_ip_blacklist.txt /var/ts3server/query_ip_denylist.txt
 fi
 
 # usage: file_env VAR [DEFAULT]
