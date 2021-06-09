@@ -1,4 +1,4 @@
-FROM alpine:3.13.1
+FROM alpine:3.13.5
 
 RUN apk add --no-cache ca-certificates libstdc++ su-exec libpq
 RUN set -eux; \
@@ -8,8 +8,8 @@ RUN set -eux; \
 
 ENV PATH "${PATH}:/opt/ts3server"
 
-ARG TEAMSPEAK_CHECKSUM=b4134aeba964782e10c22dcb96b6de4c96e558965e9d5ed9b0db47e648ad1498
-ARG TEAMSPEAK_URL=https://files.teamspeak-services.com/releases/server/3.13.3/teamspeak3-server_linux_alpine-3.13.3.tar.bz2
+ARG TEAMSPEAK_CHECKSUM=db70478d8b2d6358c0005504f1673e490ec0220b7ab93bdb418f0b051f4940aa
+ARG TEAMSPEAK_URL=https://files.teamspeak-services.com/releases/server/3.13.5/teamspeak3-server_linux_alpine-3.13.5.tar.bz2
 
 RUN set -eux; \
     apk add --no-cache --virtual .fetch-deps tar; \
