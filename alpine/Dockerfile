@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.13.5
 
 RUN apk add --no-cache ca-certificates libstdc++ su-exec libpq
 RUN set -eux; \
@@ -29,7 +29,7 @@ WORKDIR /var/ts3server/
 #  9987 default voice
 # 10011 server query
 # 30033 file transport
-EXPOSE 9987/udp 10011 30033 
+EXPOSE 9987/udp 10011 30033
 
 COPY entrypoint.sh /opt/ts3server
 
