@@ -3,7 +3,7 @@ set -e
 
 # don't start ts3server with root permissions
 if [ "$1" = 'ts3server' -a "$(id -u)" = '0' ]; then
-    chown -R ts3server /var/ts3server
+    chown -R ts3server /var/ts3server /var/run/ts3server /opt/ts3server
     exec su-exec ts3server "$0" "$@"
 fi
 
