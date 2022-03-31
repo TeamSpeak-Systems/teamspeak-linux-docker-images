@@ -85,7 +85,7 @@ EOF
         username='${TS3SERVER_DB_USER}'
         password='${TS3SERVER_DB_PASSWORD}'
         database='${TS3SERVER_DB_NAME}'
-        socket=
+        socket='${TS3SERVER_DB_SOCKET:-}'
         wait_until_ready='${TS3SERVER_DB_WAITUNTILREADY:-30}'
 EOF
 fi
