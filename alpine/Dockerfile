@@ -1,6 +1,6 @@
 FROM alpine:3.13
 
-RUN apk add --no-cache ca-certificates libstdc++ su-exec libpq
+RUN apk add --no-cache ca-certificates libstdc++ su-exec libpq tzdata
 RUN set -eux; \
     addgroup -g 9987 ts3server; \
     adduser -u 9987 -Hh /var/ts3server -G ts3server -s /sbin/nologin -D ts3server; \
