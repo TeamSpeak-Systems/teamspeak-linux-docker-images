@@ -76,6 +76,7 @@ if [ "$1" = 'ts3server' ]; then
         ${TS3SERVER_MACHINE_ID:+machine_id=${TS3SERVER_MACHINE_ID}}
         ${TS3SERVER_QUERY_SKIPBRUTEFORCECHECK:+query_skipbruteforcecheck=${TS3SERVER_QUERY_SKIPBRUTEFORCECHECk}}
         ${TS3SERVER_HINTS_ENABLED:+hints_enabled=${TS3SERVER_HINTS_ENABLED}}
+        create_default_virtualserver=${TS3SERVER_CREATE_DEFAULT_VIRTUALSERVER:-1}
 EOF
 
     cat << EOF | sed 's/^[ \t]*//;s/[ \t]*$//;/^$/d' > /var/run/ts3server/ts3db.ini
