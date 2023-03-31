@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  stage1:
+  teamspeak:
     build:
       context: ..
       dockerfile: alpine/Dockerfile
