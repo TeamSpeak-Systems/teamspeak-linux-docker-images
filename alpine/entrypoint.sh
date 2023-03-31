@@ -46,6 +46,7 @@ if [ "$1" = 'ts3server' ]; then
     file_env 'TS3SERVER_DB_USER'
     file_env 'TS3SERVER_DB_PASSWORD'
     file_env 'TS3SERVER_DB_NAME'
+    file_env 'TS3SERVER_SERVERADMIN_PASSWORD'
 
     cat << EOF | sed 's/^[ \t]*//;s/[ \t]*$//;/^$/d' > /var/run/ts3server/ts3server.ini
         licensepath=${TS3SERVER_LICENSEPATH}
