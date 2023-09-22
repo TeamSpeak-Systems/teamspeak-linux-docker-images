@@ -4,7 +4,8 @@ RUN apk add --no-cache ca-certificates libstdc++ su-exec libpq
 RUN set -eux; \
     addgroup -g 9987 ts3server; \
     adduser -u 9987 -Hh /var/ts3server -G ts3server -s /sbin/nologin -D ts3server; \
-    install -d -o ts3server -g ts3server -m 775 /var/ts3server /var/run/ts3server /opt/ts3server
+    install -d -o ts3server -g ts3server -m 770 /var/ts3server /var/run/ts3server; \
+    install -d -m 775 /opt/ts3server
 
 ENV PATH "${PATH}:/opt/ts3server"
 
@@ -17,6 +18,7 @@ RUN set -eux; \
     echo "${TEAMSPEAK_CHECKSUM} *server.tar.bz2" | sha256sum -c -; \
     mkdir -p /opt/ts3server; \
     tar -xf server.tar.bz2 --strip-components=1 -C /opt/ts3server; \
+    chmod g-w,o-w -R /opt/ts3server; \
     rm server.tar.bz2; \
     apk del .fetch-deps; \
     mv /opt/ts3server/*.so /opt/ts3server/redist/* /usr/local/lib; \
