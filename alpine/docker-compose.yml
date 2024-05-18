@@ -1,0 +1,14 @@
+version: '3.1'
+services:
+  teamspeak:
+    image: teamspeak:latest
+    restart: always
+    ports:
+      - 9987:9987/udp
+      - 10011:10011
+      - 30033:30033
+    environment:
+      TS3SERVER_LICENSE: accept
+    volumes:
+      - ./data:/var/ts3server
+    user: "9987:9987"  # Run the container as the ts3server user
