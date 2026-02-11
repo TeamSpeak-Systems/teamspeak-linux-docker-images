@@ -1,8 +1,4 @@
-FROM alpine:3.23.3
-
-LABEL com.teamspeak.title="TeamSpeak 3 Server"
-LABEL com.teamspeak.version="3.13.7"
-LABEL com.teamspeak.description="TeamSpeak 3 Server on Alpine Linux"
+FROM alpine:3.23
 
 RUN set -eux; \
     apk add --no-cache ca-certificates libstdc++ su-exec libpq; \
@@ -13,13 +9,17 @@ RUN set -eux; \
 ENV PATH="${PATH}:/opt/ts3server" \
     TS3SERVER_FILETRANSFER_PORT=30033
 
+LABEL com.teamspeak.title="TeamSpeak 3 Server"
+LABEL com.teamspeak.version="3.13.7"
+LABEL com.teamspeak.description="TeamSpeak 3 Server on Alpine Linux"
+
 ARG TEAMSPEAK_CHECKSUM=359aac972679cfd98d62af51ddaf80e674cab166e13c6a835e81759097f9ba2e
 ARG TEAMSPEAK_URL=https://files.teamspeak-services.com/releases/server/3.13.7/teamspeak3-server_linux_alpine-3.13.7.tar.bz2
 
 RUN set -eux; \
     apk add --no-cache --virtual .fetch-deps tar; \
     wget "${TEAMSPEAK_URL}" -O server.tar.bz2; \
-    echo "${TEAMSPEAK_CHECKSUM} server.tar.bz2" | sha256sum -c -; \
+    echo "${TEAMSPEAK_CHECKSUM} *server.tar.bz2" | sha256sum -c -; \
     mkdir -p /opt/ts3server; \
     tar -xf server.tar.bz2 --strip-components=1 -C /opt/ts3server; \
     rm server.tar.bz2; \
@@ -36,9 +36,6 @@ WORKDIR /var/ts3server/
 # 10011 server query
 # 30033 file transport
 EXPOSE 9987/udp 10011 30033
-
-HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-    CMD nc -z localhost ${TS3SERVER_FILETRANSFER_PORT} || exit 1
 
 COPY entrypoint.sh /opt/ts3server
 
