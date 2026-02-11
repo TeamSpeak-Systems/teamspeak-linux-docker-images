@@ -40,7 +40,7 @@ EXPOSE 9987/udp 10011 30033
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
     CMD nc -z localhost ${TS3SERVER_FILETRANSFER_PORT} || exit 1
 
-COPY --chmod=755 entrypoint.sh /opt/ts3server
+COPY entrypoint.sh /opt/ts3server
 
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "ts3server" ]
