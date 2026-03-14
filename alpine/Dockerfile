@@ -4,13 +4,18 @@ ARG IMAGE_ALPINE_VERSION
 
 FROM ${IMAGE_ALPINE_NAME}:${IMAGE_ALPINE_VERSION}
 
-RUN apk add --no-cache ca-certificates libstdc++ su-exec libpq
 RUN set -eux; \
+    apk add --no-cache ca-certificates libstdc++ su-exec libpq; \
     addgroup -g 9987 ts3server; \
     adduser -u 9987 -Hh /var/ts3server -G ts3server -s /sbin/nologin -D ts3server; \
     install -d -o ts3server -g ts3server -m 775 /var/ts3server /var/run/ts3server /opt/ts3server
 
-ENV PATH "${PATH}:/opt/ts3server"
+ENV PATH="${PATH}:/opt/ts3server" \
+    TS3SERVER_FILETRANSFER_PORT=30033
+
+LABEL com.teamspeak.title="TeamSpeak 3 Server"
+LABEL com.teamspeak.version="3.13.7"
+LABEL com.teamspeak.description="TeamSpeak 3 Server on Alpine Linux"
 
 ARG TEAMSPEAK_CHECKSUM
 ARG TEAMSPEAK_VERSION
@@ -28,7 +33,8 @@ RUN set -eux; \
     rm server.tar.bz2; \
     apk del .fetch-deps; \
     mv /opt/ts3server/*.so /opt/ts3server/redist/* /usr/local/lib; \
-    ldconfig /usr/local/lib
+    ldconfig /usr/local/lib; \
+    rm -rf /opt/ts3server/redist
 
 ENV TEAMSPEAK_VERSION=${TEAMSPEAK_VERSION}
 ENV TZ=${TIMEZONE}
