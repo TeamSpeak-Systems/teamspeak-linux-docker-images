@@ -49,7 +49,7 @@ if [ "$1" = 'ts3server' ]; then
 
     cat << EOF | sed 's/^[ \t]*//;s/[ \t]*$//;/^$/d' > /var/run/ts3server/ts3server.ini
         licensepath=${TS3SERVER_LICENSEPATH}
-        query_protocols=${TS3SERVER_QUERY_PROTOCOLS:-raw}
+        query_protocols=${TS3SERVER_QUERY_PROTOCOLS:-raw,http}
         query_timeout=${TS3SERVER_QUERY_TIMEOUT:-300}
         query_ssh_rsa_host_key=${TS3SERVER_QUERY_SSH_RSA_HOST_KEY:-ssh_host_rsa_key}
         query_ip_allowlist=${TS3SERVER_IP_ALLOWLIST:-query_ip_allowlist.txt}
@@ -76,6 +76,8 @@ if [ "$1" = 'ts3server' ]; then
         ${TS3SERVER_MACHINE_ID:+machine_id=${TS3SERVER_MACHINE_ID}}
         ${TS3SERVER_QUERY_SKIPBRUTEFORCECHECK:+query_skipbruteforcecheck=${TS3SERVER_QUERY_SKIPBRUTEFORCECHECK}}
         ${TS3SERVER_HINTS_ENABLED:+hints_enabled=${TS3SERVER_HINTS_ENABLED}}
+        query_http_port=${TS3SERVER_QUERY_HTTP_PORT:-10080}
+
 EOF
 
     cat << EOF | sed 's/^[ \t]*//;s/[ \t]*$//;/^$/d' > /var/run/ts3server/ts3db.ini
