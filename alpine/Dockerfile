@@ -10,11 +10,11 @@ ENV PATH="${PATH}:/opt/ts3server" \
     TS3SERVER_FILETRANSFER_PORT=30033
 
 LABEL com.teamspeak.title="TeamSpeak 3 Server"
-LABEL com.teamspeak.version="3.13.8"
+LABEL com.teamspeak.version="3.13.9"
 LABEL com.teamspeak.description="TeamSpeak 3 Server on Alpine Linux"
 
-ARG TEAMSPEAK_CHECKSUM=b04af5fbcbca3e847336389569eca3bff6339cba6f13f0151d6b012360e038ae
-ARG TEAMSPEAK_URL=https://files.teamspeak-services.com/releases/server/3.13.8/teamspeak3-server_linux_alpine-3.13.8.tar.bz2
+ARG TEAMSPEAK_CHECKSUM=82f58acdb2cffafa993d43ecc884133b9c6d59d15ec0dafcd7bbcd0d476a8510
+ARG TEAMSPEAK_URL=https://files.teamspeak-services.com/releases/server/3.13.9/teamspeak3-server_linux_alpine-3.13.9.tar.bz2
 
 RUN set -eux; \
     apk add --no-cache --virtual .fetch-deps tar; \
